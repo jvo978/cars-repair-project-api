@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl "http://localhost:4741/sign-out" \
+curl "https://cars-repair-project-api.herokuapp.com/sign-out" \
   --include \
   --request DELETE \
   --header "Content-Type: application/json" \

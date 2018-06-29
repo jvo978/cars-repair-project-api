@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl "http://localhost:4741/users/${ID}" \
+curl "https://cars-repair-project-api.herokuapp.com/users/${ID}" \
   --include \
   --request PATCH \
   --header "Authorization: Token token=${TOKEN}" \

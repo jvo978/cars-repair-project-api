@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl "http://localhost:4741/cars" \
+curl "https://cars-repair-project-api.herokuapp.com/cars" \
   --include \
   --request GET \
   --header "Authorization: Token token=${TOKEN}"

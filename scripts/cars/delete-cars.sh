@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl "http://localhost:4741/cars/${ID}" \
+curl "https://cars-repair-project-api.herokuapp.com/cars/${ID}" \
   --include \
   --request DELETE \
   --header "Authorization: Token token=${TOKEN}" \
