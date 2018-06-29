@@ -1,5 +1,7 @@
-class CarsController < ApplicationController
-  before_action :set_car, only: [:show, :update, :destroy]
+# frozen_string_literal: true
+
+class CarsController < OpenReadController
+  before_action :set_car, only: %i[update destroy]
 
   # GET /cars
   def index
@@ -10,15 +12,15 @@ class CarsController < ApplicationController
 
   # GET /cars/1
   def show
-    render json: @car
+    render json: Car.find(params[:id])
   end
 
   # POST /cars
   def create
-    @car = Car.new(car_params)
+    @car = current_user.cars.build(car_params)
 
     if @car.save
-      render json: @car, status: :created, location: @car
+      render json: @car, status: :created
     else
       render json: @car.errors, status: :unprocessable_entity
     end
@@ -36,16 +38,24 @@ class CarsController < ApplicationController
   # DELETE /cars/1
   def destroy
     @car.destroy
+
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_car
-      @car = Car.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def car_params
-      params.require(:car).permit(:model, :make, :year, :color, :problem)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_car
+    @car = current_user.cars.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def car_params
+    params.require(:car).permit(:model,
+                                :make,
+                                :year,
+                                :color,
+                                :problem,
+                                :user_id)
+  end
 end
