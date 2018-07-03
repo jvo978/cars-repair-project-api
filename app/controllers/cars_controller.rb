@@ -5,7 +5,7 @@ class CarsController < OpenReadController
 
   # GET /cars
   def index
-    @cars = Car.all
+    @cars = Car.where(user_id: current_user.id)
 
     render json: @cars
   end
@@ -37,6 +37,7 @@ class CarsController < OpenReadController
 
   # DELETE /cars/1
   def destroy
+    @car = Car.find(params[:id])
     @car.destroy
 
     head :no_content
