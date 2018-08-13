@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-class CarsController < OpenReadController
-  before_action :set_car, only: %i[update destroy]
+class CarsController < ProtectedController
+  before_action :set_car, only: %i[show update destroy]
 
   # GET /cars
   def index
-    @cars = Car.where(user_id: current_user.id)
+    @cars = current_user.cars.all
 
     render json: @cars
   end
 
   # GET /cars/1
   def show
-    render json: Car.find(params[:id])
+    render json: @car
   end
 
   # POST /cars
@@ -37,7 +37,7 @@ class CarsController < OpenReadController
 
   # DELETE /cars/1
   def destroy
-    @car = Car.find(params[:id])
+    # @car = Car.find(params[:id])
     @car.destroy
 
     head :no_content

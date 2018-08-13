@@ -2,5 +2,5 @@
 
 class Car < ApplicationRecord
   belongs_to :user
-  validates  :user, presence: true
+  validates  :model, :make, :year, :color, :problem, :user_id, presence: true
 end
